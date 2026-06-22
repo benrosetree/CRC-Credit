@@ -710,6 +710,12 @@ body {
 }
 
 /* Vote Button */
+.vote-actions-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
 .action-vote-btn {
   flex: 1;
   background-color: var(--btn-cream);
@@ -725,6 +731,24 @@ body {
 
 .action-vote-btn:active {
   opacity: 0.8;
+}
+
+.action-share-btn {
+  flex: 0.5;
+  background-color: transparent;
+  border: 1px solid var(--btn-cream);
+  padding: 12px;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.action-share-btn:active {
+  background-color: var(--btn-cream);
+  color: var(--circles-blue);
 }
 
 /* Repayment Box */
