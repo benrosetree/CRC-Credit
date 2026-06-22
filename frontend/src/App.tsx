@@ -304,6 +304,7 @@ function App() {
           userLockedVotes={userLockedVotes}
           isPermalockActive={isPermalockActive}
           onTogglePermalock={handleTogglePermalock}
+          address={address}
         />
       )}
 

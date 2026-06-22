@@ -209,17 +209,9 @@ export const MarketAskCard: React.FC<MarketAskCardProps> = ({
           onChange={e => setVoteInput(e.target.value)} 
           className="theme-range-slider"
         />
-        <div className="vote-actions-row mt-12">
-          <button className="action-vote-btn" onClick={handleVoteSubmit} disabled={availablePower < 1 || Number(voteInput) === 0}>
-            Vote
-          </button>
-          <button className="action-share-btn" onClick={() => {
-            navigator.clipboard.writeText(`https://garage.aboutcircles.com/app/creditdao?ask=${ask.id}`);
-            alert("Invite link copied to clipboard!");
-          }}>
-            Invite
-          </button>
-        </div>
+        <button className="action-vote-btn mt-12" onClick={handleVoteSubmit} disabled={availablePower < 1 || Number(voteInput) === 0}>
+          Vote
+        </button>
       </div>
     </div>
   );
