@@ -181,7 +181,7 @@ body {
 
 /* Hero Stats Card - Solid Premium Brand Background */
 .hero-stats-card {
-  margin: 0 20px 24px;
+  margin: 0 20px 16px;
   border-radius: 24px;
   padding: 28px 24px;
   background-color: var(--circles-blue);
@@ -249,6 +249,65 @@ body {
 
 .text-action-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Referral Banner */
+.referral-banner {
+  margin: 0 20px 24px;
+  background-color: #FFF6F3;
+  border: 1px solid rgba(255, 73, 27, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.referral-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.referral-icon {
+  font-size: 24px;
+}
+
+.referral-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.referral-text strong {
+  font-size: 14px;
+  color: var(--circles-orange);
+  font-weight: 800;
+}
+
+.referral-text p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.referral-btn {
+  background-color: var(--circles-orange);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.referral-btn:active {
+  opacity: 0.8;
 }
 
 /* Tabs */
