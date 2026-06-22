@@ -33,6 +33,7 @@ contract CreditDAO is ERC1155Holder {
     }
     
     mapping(address => Lock) public locks;
+    mapping(address => bool) public hasDeposited;
     mapping(uint256 => Ask) public asks;
     uint256 public askCounter;
     
@@ -42,7 +43,8 @@ contract CreditDAO is ERC1155Holder {
     uint256 public constant MAX_LOCK = 180 days; // 6 Months max lock
     uint256 public totalDeposits;
 
-    event Deposited(address indexed user, uint256 amount, uint256 lockDuration, bool permalocked);
+    event Deposited(address indexed user, uint256 amount, uint256 lockDuration, bool permalocked, address indexed referrer);
+    event ReferralBoost(address indexed referrer, address indexed user, uint256 boostAmount);
     event PermalockToggled(address indexed user, bool permalocked);
     event Withdrawn(address indexed user, uint256 amount);
     event AskCreated(uint256 indexed askId, address indexed borrower, uint256 maxAmount, uint256 maxFeePercentage);
@@ -56,7 +58,7 @@ contract CreditDAO is ERC1155Holder {
         daoCurrencyId = _daoCurrencyId;
     }
     
-    function deposit(uint256 amount, uint256 lockDuration, bool permalock) external {
+    function deposit(uint256 amount, uint256 lockDuration, bool permalock, address referrer) external {
         require(amount > 0, "Amount must be > 0");
         require(lockDuration <= MAX_LOCK, "Exceeds max lock");
         require(lockDuration > 0, "Must lock for > 0");
@@ -68,7 +70,17 @@ contract CreditDAO is ERC1155Holder {
         locks[msg.sender].permalocked = permalock;
         totalDeposits += amount;
         
-        emit Deposited(msg.sender, amount, lockDuration, permalock);
+        // Referral Logic
+        if (!hasDeposited[msg.sender] && referrer != address(0) && referrer != msg.sender) {
+            uint256 boostAmount = amount / 10; // 10% boost
+            locks[referrer].amount += boostAmount;
+            // The boost mirrors the referrer's own lock expiration/permalock rules
+            // keeping the contract simple and gas efficient
+            emit ReferralBoost(referrer, msg.sender, boostAmount);
+        }
+        hasDeposited[msg.sender] = true;
+
+        emit Deposited(msg.sender, amount, lockDuration, permalock, referrer);
     }
 
     function lockPermanent() external {

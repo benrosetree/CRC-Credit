@@ -251,6 +251,13 @@ function App() {
     alert("Triggered Gnosis Pay Cashback! Simulated borrower 'Gnosis Spender' just spent on their card, and the sweep bot instantly captured 400 CRC to repay lenders.");
   };
 
+  const handleSimulateFriendDeposit = () => {
+    // Simulate someone clicking the user's invite link and depositing 1000 CRC for 180 days
+    const boostPower = 1000 * 0.10; // 10% of 1000
+    setUserLockedVotes(prev => prev + boostPower);
+    alert(`A friend just used your invite link and locked 1,000 CRC! You earned an instant +${boostPower} veCRC voting power boost!`);
+  };
+
   if (!isConnected) {
     return (
       <div className="miniapp-container circles-credit-app">
@@ -374,6 +381,9 @@ function App() {
             </button>
             <button className="sandbox-action-btn" onClick={handleSimulateCashback}>
               🛒 Trigger Cashback (+400)
+            </button>
+            <button className="sandbox-action-btn" onClick={handleSimulateFriendDeposit}>
+              🤝 Friend Joins (+10% veCRC)
             </button>
           </div>
         </div>
